@@ -8,12 +8,13 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.hikuro.hikucraft.service.EconomyService;
+import org.hikuro.hikucraft.service.PermissionService;
 
 public class HunterJobListener extends JobListener {
 	private static final Map<EntityType, Double> killValues = new EnumMap<>(EntityType.class);
 
-	public HunterJobListener(EconomyService economyService) {
-		super(economyService, "hikucraft.job.hunter");
+	public HunterJobListener(EconomyService economyService, PermissionService permissionService) {
+		super(economyService, permissionService, "hikucraft.job.hunter");
 		killValues.put(EntityType.ZOMBIE, 5.0);
 		killValues.put(EntityType.SKELETON, 5.0);
 		killValues.put(EntityType.SPIDER, 4.0);

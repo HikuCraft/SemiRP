@@ -11,12 +11,14 @@ import org.bukkit.event.inventory.BrewEvent;
 import org.bukkit.inventory.meta.PotionMeta;
 import org.bukkit.potion.PotionEffectType;
 import org.hikuro.hikucraft.service.EconomyService;
+import org.hikuro.hikucraft.service.PermissionService;
 
 public class AlchemistJobListener extends JobListener {
 	private static final Map<PotionEffectType, Double> potionValues = new HashMap<>();
 
-	public AlchemistJobListener(EconomyService economyService) {
-		super(economyService, "hikucraft.job.alchemist");
+	public AlchemistJobListener(
+			EconomyService economyService, PermissionService permissionService) {
+		super(economyService, permissionService, "hikucraft.job.alchemist");
 		potionValues.put(PotionEffectType.INCREASE_DAMAGE, 15.0);
 		potionValues.put(PotionEffectType.SPEED, 20.0);
 		// TODO: Add more potion effects and values

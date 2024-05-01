@@ -8,12 +8,13 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.hikuro.hikucraft.service.EconomyService;
+import org.hikuro.hikucraft.service.PermissionService;
 
 public class MinerJobListener extends JobListener {
 	private static final Map<Material, Double> oreValues = new EnumMap<>(Material.class);
 
-	public MinerJobListener(EconomyService economyService) {
-		super(economyService, "hikucraft.job.miner");
+	public MinerJobListener(EconomyService economyService, PermissionService permissionService) {
+		super(economyService, permissionService, "hikucraft.job.miner");
 		oreValues.put(Material.COAL_ORE, 1.0);
 		oreValues.put(Material.IRON_ORE, 2.0);
 		oreValues.put(Material.GOLD_ORE, 3.0);

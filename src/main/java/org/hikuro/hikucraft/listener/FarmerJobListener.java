@@ -9,13 +9,14 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.hikuro.hikucraft.service.EconomyService;
+import org.hikuro.hikucraft.service.PermissionService;
 
 public class FarmerJobListener extends JobListener {
 	private static final Map<Material, Double> cropValues = new EnumMap<>(Material.class);
 	private static final Map<Material, Double> seedValues = new EnumMap<>(Material.class);
 
-	public FarmerJobListener(EconomyService economyService) {
-		super(economyService, "hikucraft.job.farmer");
+	public FarmerJobListener(EconomyService economyService, PermissionService permissionService) {
+		super(economyService, permissionService, "hikucraft.job.farmer");
 		cropValues.put(Material.WHEAT, 1.0);
 		cropValues.put(Material.CARROTS, 2.0);
 		cropValues.put(Material.POTATOES, 2.0);

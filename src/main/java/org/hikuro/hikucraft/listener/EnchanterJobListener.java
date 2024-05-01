@@ -7,12 +7,14 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.enchantment.EnchantItemEvent;
 import org.hikuro.hikucraft.service.EconomyService;
+import org.hikuro.hikucraft.service.PermissionService;
 
 public class EnchanterJobListener extends JobListener {
 	private static final Map<Enchantment, Double> enchantmentValues = new HashMap<>();
 
-	public EnchanterJobListener(EconomyService economyService) {
-		super(economyService, "hikucraft.job.enchanter");
+	public EnchanterJobListener(
+			EconomyService economyService, PermissionService permissionService) {
+		super(economyService, permissionService, "hikucraft.job.enchanter");
 		enchantmentValues.put(Enchantment.DURABILITY, 10.0);
 		enchantmentValues.put(Enchantment.LOOT_BONUS_MOBS, 15.0);
 		// TODO: add more enchantments

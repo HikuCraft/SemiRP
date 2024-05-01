@@ -1,0 +1,42 @@
+name: SemiRP
+version: '${project.version}'
+main: org.hikuro.hikucraft.SemiRP
+api-version: '1.20'
+
+commands:
+    job:
+        description: Set your job
+        usage: /job <job>
+        permission: hikucraft.job
+
+permissions:
+    hikucraft.job:
+        description: Allows the player to set their job
+        default: true
+    hikucraft.job.alchemist:
+        description: The player is an alchemist
+        default: false
+    hikeycraft.job.blacksmith:
+        description: The player is a blacksmith
+        default: false
+    hikucraft.job.builder:
+        description: The player is a builder
+        default: false
+    hikucraft.job.enchanter:
+        description: The player is an enchanter
+        default: false
+    hikucraft.job.farmer:
+        description: The player is a farmer
+        default: false
+    hikucraft.job.fisherman:
+        description: The player is a fisherman
+        default: false
+    hikucraft.job.hunter:
+        description: The player is a hunter
+        default: false
+    hikucraft.job.lumberjack:
+        description: The player is a lumberjack
+        default: false
+    hikucraft.job.miner:
+        description: The player is a miner
+        default: false

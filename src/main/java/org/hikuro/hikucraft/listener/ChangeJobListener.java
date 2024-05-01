@@ -2,20 +2,20 @@ package org.hikuro.hikucraft.listener;
 
 import java.util.HashMap;
 import java.util.Map;
-import org.bukkit.Bukkit;
+import java.util.Optional;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.plugin.Plugin;
+import org.hikuro.hikucraft.service.PermissionService;
 
 public class ChangeJobListener implements Listener {
-
+	private final PermissionService permissionService;
 	private final Map<String, String> jobPermissions = new HashMap<>();
 
-	public ChangeJobListener() {
+	public ChangeJobListener(PermissionService permissionService) {
+		this.permissionService = permissionService;
 		jobPermissions.put("alchemist", "hikucraft.job.alchemist");
 		jobPermissions.put("blacksmith", "hikucraft.job.blacksmith");
 		jobPermissions.put("builder", "hikucraft.job.builder");
@@ -30,27 +30,30 @@ public class ChangeJobListener implements Listener {
 	@EventHandler
 	public void onInventoryClick(InventoryClickEvent event) {
 		Player player = (Player) event.getWhoClicked();
-		Inventory clickedInventory = event.getClickedInventory();
-		if (clickedInventory != null && clickedInventory.getHolder() instanceof Player) {
-			ItemStack clickedItem = event.getCurrentItem();
-			if (clickedItem != null && clickedItem.hasItemMeta()) {
-				String jobName = clickedItem.getItemMeta().getDisplayName();
-				if (jobPermissions.containsKey(jobName)) {
-					String permission = jobPermissions.get(jobName);
-					player.sendMessage("You've chosen the job: " + jobName);
-					player.closeInventory();
-					Plugin plugin = Bukkit.getPluginManager().getPlugin("SemiRP");
-					// Add permission to player
-					player.addAttachment(plugin, permission, true);
-					// Remove all other job permissions
-					for (String jobPermission : jobPermissions.values()) {
-						if (!jobPermission.equals(permission)) {
-							player.removeAttachment(
-									player.addAttachment(plugin, jobPermission, false));
-						}
-					}
-				}
-			}
+		ItemStack clickedItem =
+				Optional.ofNullable(event.getClickedInventory())
+						.filter(inventory -> inventory.getHolder() instanceof Player)
+						.map(inventory -> inventory.getItem(event.getSlot()))
+						.orElse(null);
+
+		if (clickedItem != null && clickedItem.hasItemMeta()) {
+			String jobName = clickedItem.getItemMeta().getDisplayName();
+			Optional.ofNullable(jobPermissions.get(jobName))
+					.ifPresent(
+							permission -> {
+								player.sendMessage("You've chosen the job: " + jobName);
+								player.closeInventory();
+								manageJobPermissions(player, permission);
+							});
 		}
+	}
+
+	private void manageJobPermissions(Player player, String permission) {
+		// Remove all previous job permissions
+		for (Map.Entry<String, String> entry : jobPermissions.entrySet()) {
+			permissionService.removePermission(player, entry.getValue());
+		}
+		// Add the new job permission
+		permissionService.addPermission(player, permission);
 	}
 }

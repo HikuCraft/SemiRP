@@ -8,12 +8,14 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.inventory.FurnaceExtractEvent;
 import org.hikuro.hikucraft.service.EconomyService;
+import org.hikuro.hikucraft.service.PermissionService;
 
 public class BlacksmithJobListener extends JobListener {
 	private static final Map<Material, Double> smeltedValues = new EnumMap<>(Material.class);
 
-	public BlacksmithJobListener(EconomyService economyService) {
-		super(economyService, "hikucraft.job.blacksmith");
+	public BlacksmithJobListener(
+			EconomyService economyService, PermissionService permissionService) {
+		super(economyService, permissionService, "hikucraft.job.blacksmith");
 		smeltedValues.put(Material.IRON_INGOT, 5.0);
 		smeltedValues.put(Material.GOLD_INGOT, 8.0);
 		// TODO: Add more smelted items

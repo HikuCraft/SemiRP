@@ -8,12 +8,14 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerFishEvent;
 import org.hikuro.hikucraft.service.EconomyService;
+import org.hikuro.hikucraft.service.PermissionService;
 
 public class FishermanJobListener extends JobListener {
 	private static final Map<EntityType, Double> fishValues = new EnumMap<>(EntityType.class);
 
-	public FishermanJobListener(EconomyService economyService) {
-		super(economyService, "hikucraft.job.fisherman");
+	public FishermanJobListener(
+			EconomyService economyService, PermissionService permissionService) {
+		super(economyService, permissionService, "hikucraft.job.fisherman");
 		fishValues.put(EntityType.COD, 3.0);
 		fishValues.put(EntityType.SALMON, 4.0);
 		fishValues.put(EntityType.PUFFERFISH, 6.0);
