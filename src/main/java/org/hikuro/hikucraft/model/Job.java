@@ -12,30 +12,30 @@ public enum Job {
 	MINER;
 
 	public String permission() {
-		return "hikucraft.job." + this.toString().toLowerCase();
+		return "hikucraft.semirp.job." + this.toString().toLowerCase();
 	}
 
 	@Override
 	public String toString() {
 		switch (this) {
-			case FARMER:
-				return "Farmer";
-			case MINER:
-				return "Miner";
-			case BUILDER:
-				return "Builder";
-			case HUNTER:
-				return "Hunter";
-			case FISHERMAN:
-				return "Fisherman";
-			case LUMBERJACK:
-				return "Lumberjack";
-			case BLACKSMITH:
-				return "Blacksmith";
-			case ENCHANTER:
-				return "Enchanter";
 			case ALCHEMIST:
 				return "Alchemist";
+			case BLACKSMITH:
+				return "Blacksmith";
+			case BUILDER:
+				return "Builder";
+			case ENCHANTER:
+				return "Enchanter";
+			case FARMER:
+				return "Farmer";
+			case FISHERMAN:
+				return "Fisherman";
+			case HUNTER:
+				return "Hunter";
+			case LUMBERJACK:
+				return "Lumberjack";
+			case MINER:
+				return "Miner";
 			default:
 				return "";
 		}
@@ -44,24 +44,24 @@ public enum Job {
 	public static Job fromString(String job) {
 		job = job.toLowerCase();
 		switch (job) {
-			case "farmer":
-				return FARMER;
-			case "miner":
-				return MINER;
-			case "builder":
-				return BUILDER;
-			case "hunter":
-				return HUNTER;
-			case "fisherman":
-				return FISHERMAN;
-			case "lumberjack":
-				return LUMBERJACK;
-			case "blacksmith":
-				return BLACKSMITH;
-			case "enchanter":
-				return ENCHANTER;
 			case "alchemist":
 				return ALCHEMIST;
+			case "blacksmith":
+				return BLACKSMITH;
+			case "builder":
+				return BUILDER;
+			case "enchanter":
+				return ENCHANTER;
+			case "farmer":
+				return FARMER;
+			case "fisherman":
+				return FISHERMAN;
+			case "hunter":
+				return HUNTER;
+			case "lumberjack":
+				return LUMBERJACK;
+			case "miner":
+				return MINER;
 			default:
 				return null;
 		}

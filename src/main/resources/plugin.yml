@@ -10,33 +10,36 @@ commands:
         permission: hikucraft.job
 
 permissions:
-    hikucraft.job:
+    hikucraft.semirp:
+        description: The player is in the SemiRP gamemode
+        default: true
+    hikucraft.semirp.job:
         description: Allows the player to set their job
         default: true
-    hikucraft.job.alchemist:
+    hikucraft.semirp.job.alchemist:
         description: The player is an alchemist
         default: false
-    hikucraft.job.blacksmith:
+    hikucraft.semirp.job.blacksmith:
         description: The player is a blacksmith
         default: false
-    hikucraft.job.builder:
+    hikucraft.semirp.job.builder:
         description: The player is a builder
         default: false
-    hikucraft.job.enchanter:
+    hikucraft.semirp.job.enchanter:
         description: The player is an enchanter
         default: false
-    hikucraft.job.farmer:
+    hikucraft.semirp.job.farmer:
         description: The player is a farmer
         default: false
-    hikucraft.job.fisherman:
+    hikucraft.semirp.job.fisherman:
         description: The player is a fisherman
         default: false
-    hikucraft.job.hunter:
+    hikucraft.semirp.job.hunter:
         description: The player is a hunter
         default: false
-    hikucraft.job.lumberjack:
+    hikucraft.semirp.job.lumberjack:
         description: The player is a lumberjack
         default: false
-    hikucraft.job.miner:
+    hikucraft.semirp.job.miner:
         description: The player is a miner
         default: false
