@@ -1,7 +1,11 @@
 package org.hikuro.hikucraft;
 
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandExecutor;
+import org.bukkit.command.CommandSender;
+import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.hikuro.hikucraft.listener.MinerJobListener;
+import org.hikuro.hikucraft.listener.*;
 import org.hikuro.hikucraft.service.EconomyService;
 
 public class SemiRP extends JavaPlugin {
@@ -13,8 +17,38 @@ public class SemiRP extends JavaPlugin {
 		// Services
 		EconomyService economyService = new EconomyService();
 
+		// Register Commands
+		getCommand("job")
+				.setExecutor(
+						new CommandExecutor() {
+							@Override
+							public boolean onCommand(
+									CommandSender commandSender,
+									Command command,
+									String s,
+									String[] strings) {
+								// TODO: Implement command
+								return false;
+							}
+						});
+
 		// Register Listeners
-		getServer().getPluginManager().registerEvents(new MinerJobListener(economyService), this);
+		PluginManager pluginManager = getServer().getPluginManager();
+		JobListener[] jobListeners = {
+			new AlchemistJobListener(economyService),
+			new BlacksmithJobListener(economyService),
+			new BuilderJobListener(economyService),
+			new EnchanterJobListener(economyService),
+			new FarmerJobListener(economyService),
+			new FishermanJobListener(economyService),
+			new HunterJobListener(economyService),
+			new LumberjackJobListener(economyService),
+			new MinerJobListener(economyService)
+		};
+
+		for (JobListener jobListener : jobListeners) {
+			pluginManager.registerEvents(jobListener, this);
+		}
 	}
 
 	@Override
