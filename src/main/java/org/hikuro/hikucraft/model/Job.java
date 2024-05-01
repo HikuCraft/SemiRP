@@ -1,15 +1,19 @@
 package org.hikuro.hikucraft.model;
 
 public enum Job {
-	FARMER,
-	MINER,
-	BUILDER,
-	HUNTER,
-	FISHERMAN,
-	LUMBERJACK,
+	ALCHEMIST,
 	BLACKSMITH,
+	BUILDER,
 	ENCHANTER,
-	ALCHEMIST;
+	FARMER,
+	FISHERMAN,
+	HUNTER,
+	LUMBERJACK,
+	MINER;
+
+	public String permission() {
+		return "hikucraft.job." + this.toString().toLowerCase();
+	}
 
 	@Override
 	public String toString() {
@@ -38,6 +42,7 @@ public enum Job {
 	}
 
 	public static Job fromString(String job) {
+		job = job.toLowerCase();
 		switch (job) {
 			case "farmer":
 				return FARMER;

@@ -1,7 +1,5 @@
 package org.hikuro.hikucraft;
 
-import java.util.HashMap;
-import java.util.Map;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -11,6 +9,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.hikuro.hikucraft.listener.*;
+import org.hikuro.hikucraft.model.Job;
 import org.hikuro.hikucraft.service.EconomyService;
 import org.hikuro.hikucraft.service.PermissionService;
 
@@ -29,7 +28,7 @@ public class SemiRP extends JavaPlugin {
 				.setExecutor(
 						(commandSender, command, s, strings) -> {
 							this.openJobMenu((Player) commandSender);
-							return false;
+							return true;
 						});
 		getServer()
 				.getPluginManager()
@@ -60,30 +59,14 @@ public class SemiRP extends JavaPlugin {
 	}
 
 	private void openJobMenu(Player player) {
-		Map<String, String> jobPermissions = new HashMap<>();
-		jobPermissions.put("alchemist", "hikucraft.job.alchemist");
-		jobPermissions.put("blacksmith", "hikucraft.job.blacksmith");
-		jobPermissions.put("builder", "hikucraft.job.builder");
-		jobPermissions.put("enchanter", "hikucraft.job.enchanter");
-		jobPermissions.put("farmer", "hikucraft.job.farmer");
-		jobPermissions.put("fisherman", "hikucraft.job.fisherman");
-		jobPermissions.put("hunter", "hikucraft.job.hunter");
-		jobPermissions.put("lumberjack", "hikucraft.job.lumberjack");
-		jobPermissions.put("miner", "hikucraft.job.miner");
-
 		Inventory gui = Bukkit.createInventory(player, 9, "Choose Your Job");
-		for (String jobName : jobPermissions.keySet()) {
-			ItemStack jobItem = createJobItem(jobName);
-			gui.addItem(jobItem);
+		for (Job job : Job.values()) {
+			ItemStack item = new ItemStack(Material.DIAMOND);
+			ItemMeta meta = item.getItemMeta();
+			meta.setDisplayName(job.toString());
+			item.setItemMeta(meta);
+			gui.addItem(item);
 		}
 		player.openInventory(gui);
-	}
-
-	private ItemStack createJobItem(String jobName) {
-		ItemStack item = new ItemStack(Material.DIAMOND);
-		ItemMeta meta = item.getItemMeta();
-		meta.setDisplayName(jobName);
-		item.setItemMeta(meta);
-		return item;
 	}
 }

@@ -16,7 +16,7 @@ permissions:
     hikucraft.job.alchemist:
         description: The player is an alchemist
         default: false
-    hikeycraft.job.blacksmith:
+    hikucraft.job.blacksmith:
         description: The player is a blacksmith
         default: false
     hikucraft.job.builder:
