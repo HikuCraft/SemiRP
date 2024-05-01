@@ -1,15 +1,16 @@
 package org.hikuro.hikucraft.listener;
 
 import java.util.EnumMap;
+import java.util.Map;
+import java.util.Optional;
 import org.bukkit.Material;
-import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.hikuro.hikucraft.service.EconomyService;
 
 public class MinerJobListener extends JobListener {
-	private static final EnumMap<Material, Double> oreValues = new EnumMap<>(Material.class);
+	private static final Map<Material, Double> oreValues = new EnumMap<>(Material.class);
 
 	public MinerJobListener(EconomyService economyService) {
 		super(economyService, "hikucraft.job.miner");
@@ -27,15 +28,18 @@ public class MinerJobListener extends JobListener {
 	@EventHandler
 	public void onBlockBreak(BlockBreakEvent event) {
 		Player player = event.getPlayer();
-		if (isRightJob(player)) {
-			return;
-		}
-		Block block = event.getBlock();
-		Material material = block.getType();
-		if (oreValues.containsKey(material)) {
-			double value = oreValues.get(material);
-			this.economyService.deposit(player, value);
-			player.sendMessage("You mined " + material + " worth " + value + " coins.");
-		}
+		if (!isRightJob(player)) return;
+
+		Optional.ofNullable(oreValues.get(event.getBlock().getType()))
+				.ifPresent(
+						value -> {
+							this.economyService.deposit(player, value);
+							player.sendMessage(
+									"You mined "
+											+ event.getBlock().getType()
+											+ " worth "
+											+ value
+											+ " coins.");
+						});
 	}
 }

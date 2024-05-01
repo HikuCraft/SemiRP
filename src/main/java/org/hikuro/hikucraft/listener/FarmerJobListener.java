@@ -1,8 +1,9 @@
 package org.hikuro.hikucraft.listener;
 
 import java.util.EnumMap;
+import java.util.Map;
+import java.util.Optional;
 import org.bukkit.Material;
-import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.BlockBreakEvent;
@@ -10,8 +11,8 @@ import org.bukkit.event.block.BlockPlaceEvent;
 import org.hikuro.hikucraft.service.EconomyService;
 
 public class FarmerJobListener extends JobListener {
-	private static final EnumMap<Material, Double> cropValues = new EnumMap<>(Material.class);
-	private static final EnumMap<Material, Double> seedValues = new EnumMap<>(Material.class);
+	private static final Map<Material, Double> cropValues = new EnumMap<>(Material.class);
+	private static final Map<Material, Double> seedValues = new EnumMap<>(Material.class);
 
 	public FarmerJobListener(EconomyService economyService) {
 		super(economyService, "hikucraft.job.farmer");
@@ -28,30 +29,36 @@ public class FarmerJobListener extends JobListener {
 	@EventHandler
 	public void onBlockBreak(BlockBreakEvent event) {
 		Player player = event.getPlayer();
-		if (isRightJob(player)) {
-			return;
-		}
-		Block block = event.getBlock();
-		Material material = block.getType();
-		if (cropValues.containsKey(material)) {
-			double value = cropValues.get(material);
-			this.economyService.deposit(player, value);
-			player.sendMessage("You harvested " + material + " worth " + value + " coins.");
-		}
+		if (!isRightJob(player)) return;
+
+		Optional.ofNullable(cropValues.get(event.getBlock().getType()))
+				.ifPresent(
+						value -> {
+							this.economyService.deposit(player, value);
+							player.sendMessage(
+									"You harvested "
+											+ event.getBlock().getType()
+											+ " worth "
+											+ value
+											+ " coins.");
+						});
 	}
 
 	@EventHandler
 	public void onBlockPlace(BlockPlaceEvent event) {
 		Player player = event.getPlayer();
-		if (isRightJob(player)) {
-			return;
-		}
-		Block block = event.getBlock();
-		Material material = block.getType();
-		if (seedValues.containsKey(material)) {
-			double value = seedValues.get(material);
-			this.economyService.deposit(player, value);
-			player.sendMessage("You planted " + material + " worth " + value + " coins.");
-		}
+		if (!isRightJob(player)) return;
+
+		Optional.ofNullable(seedValues.get(event.getBlock().getType()))
+				.ifPresent(
+						value -> {
+							this.economyService.deposit(player, value);
+							player.sendMessage(
+									"You planted "
+											+ event.getBlock().getType()
+											+ " worth "
+											+ value
+											+ " coins.");
+						});
 	}
 }

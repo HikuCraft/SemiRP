@@ -1,15 +1,16 @@
 package org.hikuro.hikucraft.listener;
 
 import java.util.EnumMap;
+import java.util.Map;
+import java.util.Optional;
 import org.bukkit.entity.EntityType;
-import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.hikuro.hikucraft.service.EconomyService;
 
 public class HunterJobListener extends JobListener {
-	private static final EnumMap<EntityType, Double> killValues = new EnumMap<>(EntityType.class);
+	private static final Map<EntityType, Double> killValues = new EnumMap<>(EntityType.class);
 
 	public HunterJobListener(EconomyService economyService) {
 		super(economyService, "hikucraft.job.hunter");
@@ -21,16 +22,22 @@ public class HunterJobListener extends JobListener {
 
 	@EventHandler
 	public void onEntityDeath(EntityDeathEvent event) {
-		LivingEntity entity = event.getEntity();
-		Player player = entity.getKiller();
-		if (player == null || !isRightJob(player)) {
-			return;
-		}
-		EntityType entityType = entity.getType();
-		if (killValues.containsKey(entityType)) {
-			double value = killValues.get(entityType);
-			this.economyService.deposit(player, value);
-			player.sendMessage("You killed a " + entityType + " worth " + value + " coins.");
-		}
+		Player player =
+				Optional.ofNullable(event.getEntity().getKiller())
+						.filter(this::isRightJob)
+						.orElse(null);
+		if (player == null) return;
+
+		Optional.ofNullable(killValues.get(event.getEntity().getType()))
+				.ifPresent(
+						value -> {
+							this.economyService.deposit(player, value);
+							player.sendMessage(
+									"You killed a "
+											+ event.getEntity().getType()
+											+ " worth "
+											+ value
+											+ " coins.");
+						});
 	}
 }
