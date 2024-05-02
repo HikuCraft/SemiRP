@@ -34,6 +34,15 @@
 			<scope>provided</scope>
 		</dependency>
 
+		<!-- HikuCraft API -->
+		<dependency>
+			<groupId>org.hikuro.hikucraft</groupId>
+			<artifactId>API</artifactId>
+			<version>1.0-SNAPSHOT</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/lib/API-1.0-SNAPSHOT.jar</systemPath>
+		</dependency>
+
 		<!-- Spotless -->
 		<dependency>
 			<groupId>com.diffplug.spotless</groupId>
@@ -54,57 +63,6 @@
 					<target>17</target>
 				</configuration>
 			</plugin>
-
-<!--			<plugin>-->
-<!--				<groupId>org.apache.maven.plugins</groupId>-->
-<!--				<artifactId>maven-dependency-plugin</artifactId>-->
-<!--				<version>3.2.0</version>-->
-<!--				<executions>-->
-<!--					<execution>-->
-<!--						<id>copy-dependencies</id>-->
-<!--						<phase>package</phase>-->
-<!--						<goals>-->
-<!--							<goal>copy-dependencies</goal>-->
-<!--						</goals>-->
-<!--						<configuration>-->
-<!--							<outputDirectory>${project.build.directory}/libs</outputDirectory>-->
-<!--						</configuration>-->
-<!--					</execution>-->
-<!--				</executions>-->
-<!--			</plugin>-->
-
-<!--			<plugin>-->
-<!--				<groupId>org.apache.maven.plugins</groupId>-->
-<!--				<artifactId>maven-jar-plugin</artifactId>-->
-<!--				<version>3.2.0</version>-->
-<!--				<configuration>-->
-<!--					<archive>-->
-<!--						<manifest>-->
-<!--							<addClasspath>true</addClasspath>-->
-<!--							<classpathPrefix>libs/</classpathPrefix>-->
-<!--							<mainClass>org.hikuro.hikucraft.SemiRP</mainClass>-->
-<!--						</manifest>-->
-<!--					</archive>-->
-<!--				</configuration>-->
-<!--			</plugin>-->
-
-<!--			<plugin>-->
-<!--				<groupId>org.apache.maven.plugins</groupId>-->
-<!--				<artifactId>maven-shade-plugin</artifactId>-->
-<!--				<version>3.2.4</version>-->
-<!--				<executions>-->
-<!--					<execution>-->
-<!--						<phase>package</phase>-->
-<!--						<goals>-->
-<!--							<goal>shade</goal>-->
-<!--						</goals>-->
-<!--						<configuration>-->
-<!--							<createDependencyReducedPom>false</createDependencyReducedPom>-->
-<!--						</configuration>-->
-<!--					</execution>-->
-<!--				</executions>-->
-<!--			</plugin>-->
-
 
 			<!-- Spotless -->
 			<plugin>
@@ -133,13 +91,17 @@
 	</build>
 
 	<repositories>
+
 		<repository>
 			<id>papermc-repo</id>
 			<url>https://repo.papermc.io/repository/maven-public/</url>
 		</repository>
+
 		<repository>
 			<id>sonatype</id>
 			<url>https://oss.sonatype.org/content/groups/public/</url>
 		</repository>
+
 	</repositories>
+
 </project>
