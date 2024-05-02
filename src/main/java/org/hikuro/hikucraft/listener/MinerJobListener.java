@@ -34,7 +34,7 @@ public class MinerJobListener extends JobListener {
 		Optional.ofNullable(oreValues.get(event.getBlock().getType()))
 				.ifPresent(
 						value -> {
-							this.economyService.deposit(player, value);
+							this.economyService.deposit(player.getUniqueId(), value);
 							player.sendMessage(
 									"You mined "
 											+ event.getBlock().getType()

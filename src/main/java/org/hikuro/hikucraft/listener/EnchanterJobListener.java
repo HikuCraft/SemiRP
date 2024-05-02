@@ -32,7 +32,7 @@ public class EnchanterJobListener extends JobListener {
 								entry -> enchantmentValues.get(entry.getKey()) * entry.getValue())
 						.sum();
 
-		this.economyService.deposit(player, totalValue);
+		this.economyService.deposit(player.getUniqueId(), totalValue);
 		player.sendMessage("You enchanted an item worth " + totalValue + " coins.");
 	}
 }

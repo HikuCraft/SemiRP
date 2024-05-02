@@ -8,8 +8,10 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.hikuro.hikucraft.api.HikuCraftAPI;
 import org.hikuro.hikucraft.listener.*;
 import org.hikuro.hikucraft.model.Job;
+import org.hikuro.hikucraft.provider.HikuCraftProvider;
 import org.hikuro.hikucraft.service.EconomyService;
 import org.hikuro.hikucraft.service.PermissionService;
 
@@ -19,9 +21,10 @@ public class SemiRP extends JavaPlugin {
 	public void onEnable() {
 		getLogger().info("SemiRP has been enabled.");
 
-		// Services
-		EconomyService economyService = new EconomyService();
-		PermissionService permissionService = new PermissionService();
+		// Get Services
+		HikuCraftAPI hikuCraftAPI = HikuCraftProvider.get();
+		EconomyService economyService = hikuCraftAPI.getEconomyService();
+		PermissionService permissionService = hikuCraftAPI.getPermissionService();
 
 		// Register Commands
 		getCommand("job")

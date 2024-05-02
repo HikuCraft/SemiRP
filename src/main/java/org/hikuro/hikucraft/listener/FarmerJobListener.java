@@ -35,7 +35,7 @@ public class FarmerJobListener extends JobListener {
 		Optional.ofNullable(cropValues.get(event.getBlock().getType()))
 				.ifPresent(
 						value -> {
-							this.economyService.deposit(player, value);
+							this.economyService.deposit(player.getUniqueId(), value);
 							player.sendMessage(
 									"You harvested "
 											+ event.getBlock().getType()
@@ -53,7 +53,7 @@ public class FarmerJobListener extends JobListener {
 		Optional.ofNullable(seedValues.get(event.getBlock().getType()))
 				.ifPresent(
 						value -> {
-							this.economyService.deposit(player, value);
+							this.economyService.deposit(player.getUniqueId(), value);
 							player.sendMessage(
 									"You planted "
 											+ event.getBlock().getType()

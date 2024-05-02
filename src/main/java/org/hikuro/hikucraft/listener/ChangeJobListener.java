@@ -40,9 +40,9 @@ public class ChangeJobListener implements Listener {
 	private void manageJobPermissions(Player player, String permission) {
 		// Remove all previous job permissions
 		for (Job job : Job.values()) {
-			permissionService.removePermission(player, job.permission());
+			permissionService.removePermission(player.getUniqueId(), job.permission());
 		}
 		// Add the new job permission
-		permissionService.addPermission(player, permission);
+		permissionService.addPermission(player.getUniqueId(), permission);
 	}
 }

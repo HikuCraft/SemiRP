@@ -33,7 +33,7 @@ public class LumberjackJobListener extends JobListener {
 		Optional.ofNullable(woodValues.get(event.getBlock().getType()))
 				.ifPresent(
 						value -> {
-							this.economyService.deposit(player, value);
+							this.economyService.deposit(player.getUniqueId(), value);
 							player.sendMessage(
 									"You chopped down "
 											+ event.getBlock().getType()

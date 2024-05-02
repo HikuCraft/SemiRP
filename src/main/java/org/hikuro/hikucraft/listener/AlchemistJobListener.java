@@ -43,7 +43,7 @@ public class AlchemistJobListener extends JobListener {
 				.ifPresent(
 						potionEffect -> {
 							double value = potionValues.get(potionEffect.getType());
-							this.economyService.deposit(player, value);
+							this.economyService.deposit(player.getUniqueId(), value);
 							player.sendMessage("You brewed a potion worth " + value + " coins.");
 						});
 	}

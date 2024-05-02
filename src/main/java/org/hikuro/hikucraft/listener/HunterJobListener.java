@@ -32,7 +32,7 @@ public class HunterJobListener extends JobListener {
 		Optional.ofNullable(killValues.get(event.getEntity().getType()))
 				.ifPresent(
 						value -> {
-							this.economyService.deposit(player, value);
+							this.economyService.deposit(player.getUniqueId(), value);
 							player.sendMessage(
 									"You killed a "
 											+ event.getEntity().getType()

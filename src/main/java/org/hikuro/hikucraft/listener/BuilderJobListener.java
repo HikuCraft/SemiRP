@@ -28,7 +28,7 @@ public class BuilderJobListener extends JobListener {
 		Optional.ofNullable(buildValues.get(event.getBlock().getType()))
 				.ifPresent(
 						value -> {
-							this.economyService.deposit(player, value);
+							this.economyService.deposit(player.getUniqueId(), value);
 							player.sendMessage(
 									"You placed "
 											+ event.getBlock().getType()

@@ -20,6 +20,6 @@ public abstract class JobListener implements Listener {
 	}
 
 	protected boolean isRightJob(Player player) {
-		return this.permissionService.hasPermission(player, jobPermission);
+		return this.permissionService.hasPermission(player.getUniqueId(), jobPermission);
 	}
 }

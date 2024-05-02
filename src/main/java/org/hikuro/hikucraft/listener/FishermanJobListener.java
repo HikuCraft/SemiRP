@@ -32,7 +32,7 @@ public class FishermanJobListener extends JobListener {
 			Optional.ofNullable(fishValues.get(event.getCaught().getType()))
 					.ifPresent(
 							value -> {
-								this.economyService.deposit(player, value);
+								this.economyService.deposit(player.getUniqueId(), value);
 								player.sendMessage(
 										"You caught a "
 												+ event.getCaught().getType()

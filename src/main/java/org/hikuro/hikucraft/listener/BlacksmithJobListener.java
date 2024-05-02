@@ -30,7 +30,7 @@ public class BlacksmithJobListener extends JobListener {
 				.map(value -> value * event.getItemAmount())
 				.ifPresent(
 						value -> {
-							this.economyService.deposit(player, value);
+							this.economyService.deposit(player.getUniqueId(), value);
 							player.sendMessage(
 									"You crafted "
 											+ event.getItemType()
